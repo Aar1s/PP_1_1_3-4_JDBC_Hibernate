@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
+    // У меня вообще получится с гитом разобраться?
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         UserServiceImpl userService = new UserServiceImpl();
         userService.createUsersTable();
