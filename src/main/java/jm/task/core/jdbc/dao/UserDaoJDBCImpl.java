@@ -14,7 +14,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void createUsersTable() {
         try (Connection connection = Util.getMySQLConnection();) {
             Statement statement = connection.createStatement();
-            String createTableSQLQuery = "create table Users(ID int, NAME varchar(40), LAST_NAME varchar(40), AGE int)";
+            String createTableSQLQuery = "create table Users(ID int, NAME varchar(40), LAST_NAME varchar(40), AGE int, PRIMARY KEY (`ID`))";
             statement.execute(createTableSQLQuery);
         } catch (ClassNotFoundException | SQLException ignored) {
         }
@@ -27,20 +27,20 @@ public class UserDaoJDBCImpl implements UserDao {
             Statement statement = connection.createStatement();
             String dropTableSQLQuery = "drop table Users";
             statement.execute(dropTableSQLQuery);
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (ClassNotFoundException | SQLException ignored) {
         }
     }
 
     public void saveUser(String name, String lastName, byte age)  {
         String saveUserQuery;
-        PreparedStatement statement;
+        PreparedStatement preparedStatement;
         try (Connection connection = Util.getMySQLConnection()) {
             userCount++;
             saveUserQuery = "Insert into Users (ID, NAME, LAST_NAME, AGE)" +
                     " values (" + userCount + ", '" + name + "', '" +
                     lastName + "', " + age + ")";
-            statement = connection.prepareStatement(saveUserQuery);
-            statement.execute(saveUserQuery);
+            preparedStatement = connection.prepareStatement(saveUserQuery);
+            preparedStatement.execute(saveUserQuery);
             System.out.println("User с именем " + name + " добавлен в базу данных");
         } catch (ClassNotFoundException | SQLException ignored) {
         }
