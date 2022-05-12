@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private static int userCount = 0;
 
     public void createUsersTable() {
         try (Connection connection = Util.getMySQLConnection();) {
@@ -34,7 +33,6 @@ public class UserDaoJDBCImpl implements UserDao {
         String saveUserQuery;
         PreparedStatement preparedStatement;
         try (Connection connection = Util.getMySQLConnection()) {
-            userCount++;
             saveUserQuery = "INSERT INTO users (name, last_name, age) VALUES (?, ?, ?)";
             preparedStatement = connection.prepareStatement(saveUserQuery);
             preparedStatement.setString(1, name);
