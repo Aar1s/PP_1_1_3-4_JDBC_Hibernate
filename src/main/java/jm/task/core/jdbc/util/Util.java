@@ -17,8 +17,9 @@ public class Util {
     private static final String USER = "root";
     private static final String PASSWORD = "admin";
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final SessionFactory sessionFactory;
-    static {
+
+
+    public static SessionFactory getSessionFactory() {
         Configuration configuration = new Configuration()
                 .setProperty("hibernate.connection.url", URL)
                 .setProperty("hibernate.connection.username", USER)
@@ -29,10 +30,7 @@ public class Util {
 
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties()).build();
-        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-    }
-
-    public static SessionFactory getSessionFactory() {
+        SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         return sessionFactory;
     }
 
